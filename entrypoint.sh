@@ -38,7 +38,7 @@ else
   TFSEC_COMMENT=0
 fi
 
-if [ "${GITHUB_EVENT_NAME}" == "pull_request" ] && [ -n "${GITHUB_TOKEN}" ] && [ "${TFSEC_COMMENT}" == "1" ] && [ "${TFSEC_EXITCODE}" != "0" ]; then
+if [ "${GITHUB_EVENT_NAME}" == "pull_request" ] && [ -n "${GITHUB_TOKEN}" ] && [ "${TFSEC_COMMENT}" == "1" ]; then
     COMMENT="#### \`Terraform Security Scan\` ${TFSEC_STATUS}
 <details><summary>Show Output</summary>
 
