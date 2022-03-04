@@ -22,10 +22,16 @@ fi
 TFSEC_EXITCODE=${?}
 
 # Exit code of 0 indicates success.
-if [ ${TFSEC_EXITCODE} -eq 0 ]; then
-  TFSEC_STATUS="Success"
+if [ "$(grep -c "soft-fail" <<< ${INPUT_TFSEC_ARGS} )" -eq "1" ]
+then
+  TFSEC_STATUS=""
 else
-  TFSEC_STATUS="Failed"
+  if [ ${TFSEC_EXITCODE} -eq 0 ]
+  then
+    TFSEC_STATUS="Success"
+  else
+    TFSEC_STATUS="Failed"
+  fi
 fi
 
 # Print output.
