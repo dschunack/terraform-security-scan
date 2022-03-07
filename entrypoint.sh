@@ -9,15 +9,19 @@ fi
 
 # grab tfsec from GitHub (taken from README.md)
 if [[ -n "$INPUT_TFSEC_VERSION" ]]; then
-  env GO111MODULE=on go install github.com/aquasecurity/tfsec/cmd/tfsec@"${INPUT_TFSEC_VERSION}"
+  #env GO111MODULE=on go install github.com/aquasecurity/tfsec/cmd/tfsec@"${INPUT_TFSEC_VERSION}"
+  curl -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/${INPUT_TFSEC_VERSION}/tfsec-linux-amd64
+  chmod +x /tmp/tfsec
 else
-  env GO111MODULE=on go get -u github.com/aquasecurity/tfsec/cmd/tfsec
+  #env GO111MODULE=on go get -u github.com/aquasecurity/tfsec/cmd/tfsec
+  curl -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/v1.6.2/tfsec-linux-amd64
+  chmod +x /tmp/tfsec
 fi
 
 if [[ -n "$INPUT_TFSEC_EXCLUDE" ]]; then
-  TFSEC_OUTPUT=$(/go/bin/tfsec ${TFSEC_WORKING_DIR} --no-colour ${INPUT_TFSEC_ARGS} -e "${INPUT_TFSEC_EXCLUDE}" ${INPUT_TFSEC_OUTPUT_FORMAT:+ -f "$INPUT_TFSEC_OUTPUT_FORMAT"} ${INPUT_TFSEC_OUTPUT_FILE:+ --out "$INPUT_TFSEC_OUTPUT_FILE"})
+  TFSEC_OUTPUT=$(/tmp/tfsec ${TFSEC_WORKING_DIR} --no-colour ${INPUT_TFSEC_ARGS} -e "${INPUT_TFSEC_EXCLUDE}" ${INPUT_TFSEC_OUTPUT_FORMAT:+ -f "$INPUT_TFSEC_OUTPUT_FORMAT"} ${INPUT_TFSEC_OUTPUT_FILE:+ --out "$INPUT_TFSEC_OUTPUT_FILE"})
 else
-  TFSEC_OUTPUT=$(/go/bin/tfsec ${TFSEC_WORKING_DIR} --no-colour ${INPUT_TFSEC_ARGS} ${INPUT_TFSEC_OUTPUT_FORMAT:+ -f "$INPUT_TFSEC_OUTPUT_FORMAT"} ${INPUT_TFSEC_OUTPUT_FILE:+ --out "$INPUT_TFSEC_OUTPUT_FILE"})
+  TFSEC_OUTPUT=$(/tmp/tfsec ${TFSEC_WORKING_DIR} --no-colour ${INPUT_TFSEC_ARGS} ${INPUT_TFSEC_OUTPUT_FORMAT:+ -f "$INPUT_TFSEC_OUTPUT_FORMAT"} ${INPUT_TFSEC_OUTPUT_FILE:+ --out "$INPUT_TFSEC_OUTPUT_FILE"})
 fi
 TFSEC_EXITCODE=${?}
 
