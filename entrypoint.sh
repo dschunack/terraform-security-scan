@@ -10,11 +10,11 @@ fi
 # grab tfsec from GitHub (taken from README.md)
 if [[ -n "$INPUT_TFSEC_VERSION" ]]; then
   #env GO111MODULE=on go install github.com/aquasecurity/tfsec/cmd/tfsec@"${INPUT_TFSEC_VERSION}"
-  curl -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/${INPUT_TFSEC_VERSION}/tfsec-linux-amd64
+  curl -L -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/${INPUT_TFSEC_VERSION}/tfsec-linux-amd64
   chmod +x /tmp/tfsec
 else
   #env GO111MODULE=on go get -u github.com/aquasecurity/tfsec/cmd/tfsec
-  curl -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/v1.6.2/tfsec-linux-amd64
+  curl -L -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/v1.6.2/tfsec-linux-amd64
   chmod +x /tmp/tfsec
 fi
 
