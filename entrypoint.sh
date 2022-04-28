@@ -14,7 +14,7 @@ if [[ -n "$INPUT_TFSEC_VERSION" ]]; then
   chmod +x /tmp/tfsec
 else
   #env GO111MODULE=on go get -u github.com/aquasecurity/tfsec/cmd/tfsec
-  curl -L -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/v1.6.2/tfsec-linux-amd64
+  curl -L -o /tmp/tfsec https://github.com/aquasecurity/tfsec/releases/download/v1.19.1/tfsec-linux-amd64
   chmod +x /tmp/tfsec
 fi
 
