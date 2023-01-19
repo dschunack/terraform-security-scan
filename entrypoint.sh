@@ -18,6 +18,8 @@ else
   #chmod +x /tmp/tfsec
 fi
 
+TFSEC_VERSION=$(/go/bin/tfsec -v)
+
 if [[ -n "$INPUT_TFSEC_EXCLUDE" ]]; then
   #TFSEC_OUTPUT=$(/tmp/tfsec ${TFSEC_WORKING_DIR} --no-colour ${INPUT_TFSEC_ARGS} -e "${INPUT_TFSEC_EXCLUDE}" ${INPUT_TFSEC_OUTPUT_FORMAT:+ -f "$INPUT_TFSEC_OUTPUT_FORMAT"} ${INPUT_TFSEC_OUTPUT_FILE:+ --out "$INPUT_TFSEC_OUTPUT_FILE"})
   TFSEC_OUTPUT=$(/go/bin/tfsec ${TFSEC_WORKING_DIR} --no-colour ${INPUT_TFSEC_ARGS} -e "${INPUT_TFSEC_EXCLUDE}" ${INPUT_TFSEC_OUTPUT_FORMAT:+ -f "$INPUT_TFSEC_OUTPUT_FORMAT"} ${INPUT_TFSEC_OUTPUT_FILE:+ --out "$INPUT_TFSEC_OUTPUT_FILE"})
@@ -52,6 +54,9 @@ fi
 
 if [ "${GITHUB_EVENT_NAME}" == "pull_request" ] && [ -n "${GITHUB_TOKEN}" ] && [ "${TFSEC_COMMENT}" == "1" ]; then
     COMMENT="#### \`Terraform Security Scan\` ${TFSEC_STATUS}
+
+TFSec Version: ${TFSEC_VERSION}
+
 <details><summary>Show Output</summary>
 
 \`\`\`hcl
