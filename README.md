@@ -1,5 +1,3 @@
-> :warning: tfsec has it's own github action now, which will certainly follow more the evolution of this amazing tool. When I discovered tfsec, there was no github actions, and this is the reason why this one exists. Now that they have their own, there is not more need to have multiple repo for that. You can find it here: [aquasecurity/tfsec-pr-commenter-action](https://github.com/aquasecurity/tfsec-pr-commenter-action) :warning:
-
 ![Master CI](https://github.com/triat/terraform-security-scan/workflows/Master%20CI/badge.svg?branch=master)
 # Terraform security check action
 
@@ -25,9 +23,9 @@ None
 ```yaml
 steps:
   - uses: actions/checkout@v2
-  - uses: triat/terraform-security-scan@v3.0.0
+  - uses: triat/terraform-security-scan@v3
 ```
-The above example uses a tagged version (`v1`), you can also opt to use any of the released version.
+The above example uses a tagged version (`v3`), you can also opt to use any of the released version.
 
 To allow the action to add a comment to a PR when it fails you need to append the `GITHUB_TOKEN` variable to the tfsec action:
 
